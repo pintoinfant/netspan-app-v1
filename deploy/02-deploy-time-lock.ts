@@ -7,7 +7,7 @@ const deployTimeLock: DeployFunction = async function (hre: HardhatRuntimeEnviro
   // @ts-ignore
   const { getNamedAccounts, deployments, network } = hre
   const { deploy, log } = deployments
-  const { deployer } = await getNamedAccounts()
+  const { deployer, alpha, beta, charlie, delta, echo } = await getNamedAccounts();
   log("----------------------------------------------------")
   log("Deploying TimeLock and waiting for confirmations...")
   const timeLock = await deploy("TimeLock", {
@@ -18,15 +18,18 @@ const deployTimeLock: DeployFunction = async function (hre: HardhatRuntimeEnviro
      * renounced as well. in later section so we are doing the same by giving admin role to
      * deployer and then renounced to keep the tutorial same.
      */
-    args: [MIN_DELAY, [], [], deployer],
+    args: [MIN_DELAY,
+      [deployer, alpha, beta, charlie, delta, echo],
+      [deployer, alpha, beta],
+      deployer],
     log: true,
     // we need to wait if on a live network so we can verify properly
-    waitConfirmations: networkConfig[network.name].blockConfirmations || 1,
+    // waitConfirmations: networkConfig[network.name].blockConfirmations || 1,
   })
   log(`TimeLock at ${timeLock.address}`)
-  if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
-    await verify(timeLock.address, [])
-  }
+  // if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
+  //   await verify(timeLock.address, [])
+  // }
 }
 
 export default deployTimeLock

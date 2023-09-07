@@ -24,25 +24,9 @@ const config: HardhatUserConfig = {
     localhost: {
       chainId: 31337,
       allowUnlimitedContractSize: true
-    },
-    sepolia: {
-      url: SEPOLIA_RPC_URL,
-      accounts: [PRIVATE_KEY],
-      chainId: 11155111,
-    },
+    }
   },
-  solidity: {
-    version: "0.8.9",
-    settings: {
-      optimizer: {
-        enabled: true,
-        runs: 200,
-      },
-    },
-  },
-  etherscan: {
-    apiKey: ETHERSCAN_API_KEY,
-  },
+  solidity: "0.8.19",
   gasReporter: {
     enabled: true,
     currency: "USD",
@@ -52,9 +36,23 @@ const config: HardhatUserConfig = {
   },
   namedAccounts: {
     deployer: {
-      default: 0, // here this will by default take the first account as deployer
-      1: 0, // similarly on mainnet it will take the first account as deployer. Note though that depending on how hardhat network are configured, the account 0 on one network can be different than on another
+      default: 0,
     },
+    alpha: {
+      default: 1,
+    },
+    beta: {
+      default: 2,
+    },
+    charlie: {
+      default: 3,
+    },
+    delta: {
+      default: 4,
+    },
+    echo: {
+      default: 5,
+    }
   },
   mocha: {
     timeout: 200000, // 200 seconds max for running tests
