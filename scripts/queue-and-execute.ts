@@ -1,7 +1,9 @@
 import { ethers, network } from "hardhat"
 import {
   FUNC,
-  NEW_STORE_VALUE,
+  PLMN,
+  NAME,
+  REGION,
   PROPOSAL_DESCRIPTION,
   MIN_DELAY,
   developmentChains,
@@ -10,16 +12,16 @@ import { moveBlocks } from "../utils/move-blocks"
 import { moveTime } from "../utils/move-time"
 
 export async function queueAndExecute() {
-  const args = [NEW_STORE_VALUE]
+  const args = [PLMN, REGION, NAME]
   const functionToCall = FUNC
-  const box = await ethers.getContract("Box")
-  const encodedFunctionCall = box.interface.encodeFunctionData(functionToCall, args)
+  const registry = await ethers.getContract("PLMN")
+  const encodedFunctionCall = registry.interface.encodeFunctionData(functionToCall, args)
   const descriptionHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(PROPOSAL_DESCRIPTION))
   // could also use ethers.utils.id(PROPOSAL_DESCRIPTION)
 
   const governor = await ethers.getContract("GovernorContract")
   console.log("Queueing...")
-  const queueTx = await governor.queue([box.address], [0], [encodedFunctionCall], descriptionHash)
+  const queueTx = await governor.queue([registry.address], [0], [encodedFunctionCall], descriptionHash)
   await queueTx.wait(1)
 
   if (developmentChains.includes(network.name)) {
@@ -30,13 +32,13 @@ export async function queueAndExecute() {
   console.log("Executing...")
   // this will fail on a testnet because you need to wait for the MIN_DELAY!
   const executeTx = await governor.execute(
-    [box.address],
+    [registry.address],
     [0],
     [encodedFunctionCall],
     descriptionHash
   )
   await executeTx.wait(1)
-  console.log(`Box value: ${await box.retrieve()}`)
+  console.log(`Box value: ${await registry.retrieve()}`)
 }
 
 queueAndExecute()
