@@ -25,7 +25,7 @@ contract GovernorContract is
   )
     Governor("TCRDAO")
     GovernorSettings(
-      _votingDelay /* 1 block */, // voting delay
+      _votingDelay, /* 1 block */ // voting delay
       _votingPeriod, // 45818, /* 1 week */ // voting period
       0 // proposal threshold
     )
@@ -44,22 +44,30 @@ contract GovernorContract is
 
   // The following functions are overrides required by Solidity.
 
-  function quorum(
-    uint256 blockNumber
-  ) public view override(IGovernor, GovernorVotesQuorumFraction) returns (uint256) {
+  function quorum(uint256 blockNumber)
+    public
+    view
+    override(IGovernor, GovernorVotesQuorumFraction)
+    returns (uint256)
+  {
     return super.quorum(blockNumber);
   }
 
-  function getVotes(
-    address account,
-    uint256 blockNumber
-  ) public view override(IGovernor, Governor) returns (uint256) {
+  function getVotes(address account, uint256 blockNumber)
+    public
+    view
+    override(IGovernor, Governor)
+    returns (uint256)
+  {
     return super.getVotes(account, blockNumber);
   }
 
-  function state(
-    uint256 proposalId
-  ) public view override(Governor, GovernorTimelockControl) returns (ProposalState) {
+  function state(uint256 proposalId)
+    public
+    view
+    override(Governor, GovernorTimelockControl)
+    returns (ProposalState)
+  {
     return super.state(proposalId);
   }
 
@@ -99,9 +107,12 @@ contract GovernorContract is
     return super._executor();
   }
 
-  function supportsInterface(
-    bytes4 interfaceId
-  ) public view override(Governor, GovernorTimelockControl) returns (bool) {
+  function supportsInterface(bytes4 interfaceId)
+    public
+    view
+    override(Governor, GovernorTimelockControl)
+    returns (bool)
+  {
     return super.supportsInterface(interfaceId);
   }
 }

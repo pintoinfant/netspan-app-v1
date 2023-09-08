@@ -1,27 +1,29 @@
-
-import { Server } from "socket.io";
-//@ts-ignore
-import { Contract, ethers } from "ethers"
+import express from 'express';
+import { ethers } from 'ethers';
 import contractABI from "../artifacts/contracts/TCRToken.sol/TCRToken.json"
 
-const io = new Server();
-// const provider = new ethers.providers.JsonRpcProvider('http://localhost:8545');
-const ABI = contractABI;
+const app = express();
+const port = 3000;
 
-const provider = new ethers.providers.JsonRpcBatchProvider('http://localhost:8545');
-let contract = new ethers.Contract('0x5FbDB2315678afecb367f032d93F642f64180aa3', ABI.abi, provider);
+// Initialize your Ethereum provider (e.g., Infura)
+const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545');
 
-while (true) {
+const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 
-  contract.provider.on('NewDAOMember', (member: any) => {
-    console.log(member);
-  })
 
-  contract.once('NewDAOMember', (member: any) => {
-    console.log(member);
-  })
+// Connect to the contract
+const contract = new ethers.Contract(contractAddress, contractABI.abi, provider);
 
-  contract.on('NewDAOMember', (member: any) => {
-    console.log(member);
-  })
-}
+// Define the event to listen for
+const eventName = 'NewDAOMember'; // Replace with the actual event name
+
+// Start listening to the event
+contract.on(eventName, (...args) => {
+  console.log('Event emitted:');
+  console.log(...args); // Log the event data
+});
+
+// Start the Express.js server
+app.listen(port, () => {
+  console.log(`Express server listening on port ${port}`);
+});
