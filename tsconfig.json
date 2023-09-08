@@ -4,10 +4,11 @@
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "resolveJsonModule": true,
     // optional:
     // "suppressImplicitAnyIndexErrors": true
   },
   "include": ["./scripts", "./test", "./deploy", "./deploy-helpers"],
-  "files": ["./hardhat.config.ts", "./helper-hardhat-config.ts"]
+  "files": ["./hardhat.config.ts", "./helper-hardhat-config.ts"],
 }
