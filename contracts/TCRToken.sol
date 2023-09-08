@@ -9,11 +9,8 @@ contract TCRToken is ERC20Votes, Ownable {
 
   constructor() ERC20("TCRToken", "TCRT") ERC20Permit("TCRToken") {}
 
-  event NewDAOMember(address _newMember, uint256 _amount);
-
   function addNewDAOMember(address _newMember, uint256 _amount) public onlyOwner {
     _mint(_newMember, _amount);
-    emit NewDAOMember(_newMember, _amount);
   }
 
   function transfer(

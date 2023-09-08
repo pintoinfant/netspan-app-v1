@@ -15,7 +15,7 @@ const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 const contract = new ethers.Contract(contractAddress, contractABI.abi, provider);
 
 // Define the event to listen for
-const eventName = 'NewDAOMember'; // Replace with the actual event name
+const eventName = 'Transfer'; // Replace with the actual event name
 
 // Start listening to the event
 contract.on(eventName, (...args) => {
