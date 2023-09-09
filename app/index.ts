@@ -1,29 +1,39 @@
 import express from 'express';
 import { ethers } from 'ethers';
-import contractABI from "../artifacts/contracts/TCRToken.sol/TCRToken.json"
+import { MongoClient } from "mongodb"
+import dotenv from "dotenv"
+dotenv.config()
+
+import tokenContractABI from "../artifacts/contracts/TCRToken.sol/TCRToken.json"
 
 const app = express();
 const port = 3000;
 
 // Initialize your Ethereum provider (e.g., Infura)
-const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545');
+const provider = new ethers.providers.JsonRpcProvider('https://polygon-mumbai-bor.publicnode.com');
 
-const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
+const client = new MongoClient(process.env.MONGO_URI as string);
+const db = client.db('tcr')
 
+const tokenContractAddress = '0x2c8CEc9B25DbFEAC623b42CbAb268A4409Fe73E1';
 
 // Connect to the contract
-const contract = new ethers.Contract(contractAddress, contractABI.abi, provider);
+const tokenContract = new ethers.Contract(tokenContractAddress, tokenContractABI.abi, provider);
 
 // Define the event to listen for
-const eventName = 'Transfer'; // Replace with the actual event name
+// const eventName = 'Transfer'; // Replace with the actual event name
 
 // Start listening to the event
-contract.on(eventName, (...args) => {
-  console.log('Event emitted:');
-  console.log(...args); // Log the event data
+tokenContract.on('*', (event) => {
+  // console.log('Event emitted:');
+  db.collection('events').insertOne(event)
+  console.log(event); // Log the event data
 });
 
 // Start the Express.js server
 app.listen(port, () => {
+  client.connect().then(() => {
+    console.log("Connected successfully to server");
+  });
   console.log(`Express server listening on port ${port}`);
 });
