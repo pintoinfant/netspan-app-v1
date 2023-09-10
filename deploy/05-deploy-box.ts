@@ -21,9 +21,6 @@ const deployRegistry: DeployFunction = async function (hre: HardhatRuntimeEnviro
 
 
   log(`TCR Registry at ${tcrRegistry.address}`)
-  // if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
-  //   await verify(box.address, [])
-  // }
   const tcrRegistryContract = await ethers.getContractAt("PLMN", tcrRegistry.address)
   const timeLock = await ethers.getContract("TimeLock")
   const transferTx = await tcrRegistryContract.transferOwnership(timeLock.address)

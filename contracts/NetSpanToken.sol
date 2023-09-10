@@ -4,10 +4,10 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract TCRToken is ERC20Votes, Ownable {
+contract NetSpanToken is ERC20Votes, Ownable {
   uint256 public s_maxSupply = 1000000000;
 
-  constructor() ERC20("TCRToken", "TCRT") ERC20Permit("TCRToken") {}
+  constructor() ERC20("NetSpanToken", "NST") ERC20Permit("NetSpanToken") {}
 
   function addNewDAOMember(address _newMember, uint256 _amount) public onlyOwner {
     _mint(_newMember, _amount);

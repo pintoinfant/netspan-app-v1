@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 // Import OpenZeppelin ERC20 and Ownable for token and contract ownership management
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract PLMN is Ownable {
+contract TCR is Ownable {
   // Struct to represent a PLMN entry
   struct Entry {
     address proposer;
