@@ -1,14 +1,19 @@
 import { ethers, network } from "hardhat"
 
 export async function addMembers() {
-  const tokenContract = await ethers.getContract("TCRToken")
+  const tokenContract = await ethers.getContract("NetSpanToken")
+  // const memberTx = await tokenContract.balanceOf(
+  //   '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266')
+  // // await memberTx.waitForDeployment(1)
+
+  // console.log(`Member balance : ${memberTx}`)
+
   const memberTx = await tokenContract.addNewDAOMember(
-    '0x8626f6940e2eb28930efb4cef49b2d1f2c9c1199',
+    '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
     1000
   )
   await memberTx.wait(1)
-  
-  console.log(`Member added`)
+  console.log(`Member added : ${memberTx}`)
 }
 
 

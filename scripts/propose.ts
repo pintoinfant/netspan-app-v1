@@ -13,8 +13,8 @@ import * as fs from "fs"
 import { moveBlocks } from "../utils/move-blocks"
 
 export async function propose(args: any[], functionToCall: string, proposalDescription: string) {
-  const governor = await ethers.getContract("GovernorContract")
-  const registry = await ethers.getContract("PLMN")
+  const governor = await ethers.getContract("NetSpanGovernor")
+  const registry = await ethers.getContract("TCR")
   const encodedFunctionCall = registry.interface.encodeFunctionData(functionToCall, args)
   console.log(`Proposing ${functionToCall} on ${registry.address} with ${args}`)
   console.log(`Proposal Description:\n  ${proposalDescription}`)

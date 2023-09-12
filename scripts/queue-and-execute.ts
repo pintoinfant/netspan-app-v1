@@ -14,12 +14,12 @@ import { moveTime } from "../utils/move-time"
 export async function queueAndExecute() {
   const args = [PLMN, REGION, NAME]
   const functionToCall = FUNC
-  const registry = await ethers.getContract("PLMN")
+  const registry = await ethers.getContract("TCR")
   const encodedFunctionCall = registry.interface.encodeFunctionData(functionToCall, args)
   const descriptionHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(PROPOSAL_DESCRIPTION))
   // could also use ethers.utils.id(PROPOSAL_DESCRIPTION)
 
-  const governor = await ethers.getContract("GovernorContract")
+  const governor = await ethers.getContract("NetSpanGovernor")
   console.log("Queueing...")
   const queueTx = await governor.queue([registry.address], [0], [encodedFunctionCall], descriptionHash)
   await queueTx.wait(1)

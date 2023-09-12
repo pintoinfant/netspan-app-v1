@@ -14,19 +14,16 @@ const deployGovernorContract: DeployFunction = async function (hre: HardhatRunti
   const { getNamedAccounts, deployments, network } = hre
   const { deploy, log, get } = deployments
   const { deployer, alpha, beta, charlie, delta, echo } = await getNamedAccounts();
-  const governanceToken = await get("TCRToken")
+  const governanceToken = await get("NetSpanToken")
   const timeLock = await get("TimeLock")
   const args = [
     governanceToken.address,
     timeLock.address,
-    QUORUM_PERCENTAGE,
-    VOTING_PERIOD,
-    VOTING_DELAY,
   ]
 
   log("----------------------------------------------------")
   log("Deploying GovernorContract and waiting for confirmations...")
-  const governorContract = await deploy("GovernorContract", {
+  const governorContract = await deploy("NetSpanGovernor", {
     from: deployer,
     args,
     log: true,

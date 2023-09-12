@@ -11,7 +11,7 @@ const deployGovernanceToken: DeployFunction = async function (hre: HardhatRuntim
   const { deployer, alpha, beta, charlie, delta, echo } = await getNamedAccounts();
   log("----------------------------------------------------")
   log("Deploying GovernanceToken and waiting for confirmations...")
-  const governanceToken = await deploy("TCRToken", {
+  const governanceToken = await deploy("NetSpanToken", {
     from: deployer,
     args: [],
     log: true,
@@ -22,7 +22,7 @@ const deployGovernanceToken: DeployFunction = async function (hre: HardhatRuntim
 
   log("----------------------------------------------------")
   log('Minting 5000 TCRToken to deployer...')
-  const mintTx = await ethers.getContractAt('TCRToken', governanceToken.address)
+  const mintTx = await ethers.getContractAt('NetSpanToken', governanceToken.address)
   mintTx.addNewDAOMember(deployer, 5000)
   log('Minted 5000 TCRToken to deployer...')
 

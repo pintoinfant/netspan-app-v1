@@ -9,11 +9,11 @@ const deployRegistry: DeployFunction = async function (hre: HardhatRuntimeEnviro
   const { getNamedAccounts, deployments, network } = hre
   const { deploy, log, get } = deployments
   const { deployer } = await getNamedAccounts()
-  const governorContract = await get("GovernorContract")
+  const governorContract = await get("NetSpanGovernor")
   log("----------------------------------------------------")
   log("Deploying TCR Registry and waiting for confirmations...")
 
-  const tcrRegistry = await deploy("PLMN", {
+  const tcrRegistry = await deploy("TCR", {
     from: deployer,
     args: [governorContract.address],
     log: true,
@@ -21,7 +21,7 @@ const deployRegistry: DeployFunction = async function (hre: HardhatRuntimeEnviro
 
 
   log(`TCR Registry at ${tcrRegistry.address}`)
-  const tcrRegistryContract = await ethers.getContractAt("PLMN", tcrRegistry.address)
+  const tcrRegistryContract = await ethers.getContractAt("TCR", tcrRegistry.address)
   const timeLock = await ethers.getContract("TimeLock")
   const transferTx = await tcrRegistryContract.transferOwnership(timeLock.address)
   await transferTx.wait(1)

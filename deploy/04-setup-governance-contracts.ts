@@ -11,7 +11,7 @@ const setupContracts: DeployFunction = async function (hre: HardhatRuntimeEnviro
   const { deployer, alpha, beta, charlie, delta, echo } = await getNamedAccounts();
 
   const timeLock = await ethers.getContract("TimeLock", deployer)
-  const governor = await ethers.getContract("GovernorContract", deployer)
+  const governor = await ethers.getContract("NetSpanGovernor", deployer)
 
   log("----------------------------------------------------")
   log("Setting up contracts for roles...")
