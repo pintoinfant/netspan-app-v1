@@ -19,8 +19,8 @@ contract NetSpanGovernor is
   constructor(IVotes _token, TimelockController _timelock)
     Governor("NetSpanGovernor")
     GovernorSettings(
-      26, /* 1 minute */
-      261, /* 10 minutes */
+      10, /* 1 minute */
+      100, /* 10 minutes */
       0
     )
     GovernorVotes(_token)
