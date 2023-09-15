@@ -7,7 +7,14 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract NetSpanToken is ERC20Votes, Ownable {
   uint256 public s_maxSupply = 1000000000000000000;
 
-  constructor() ERC20("NetSpanToken", "NST") ERC20Permit("NetSpanToken") {}
+  constructor() ERC20("NetSpanToken", "NST") ERC20Permit("NetSpanToken") {
+    _mint(msg.sender, s_maxSupply / 2);
+    _mint(address(this), s_maxSupply / 2);
+  }
+
+  function faucet(address to, uint256 amount) public {
+    _transfer(address(this), to, amount);
+  }
 
   function addNewDAOMember(address _newMember, uint256 _amount) public onlyOwner {
     _mint(_newMember, _amount);
