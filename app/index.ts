@@ -13,24 +13,18 @@ const app = express();
 const port = 3001;
 
 // Initialize your Ethereum provider (e.g., Infura)
-// const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545');
-const provider = new ethers.providers.JsonRpcProvider('https://polygon-mumbai-bor.publicnode.com');
+const provider = new ethers.providers.JsonRpcProvider('https://althea.zone:8545');
 
 
 const client = new MongoClient(process.env.MONGO_URI as string);
 const db = client.db('netspan')
 
 
+const tokenContractAddress = '0x2c8CEc9B25DbFEAC623b42CbAb268A4409Fe73E1';
+const tcrContractAddress = '0x5736DcBA26013BBaA9D51C927d1BFC8Aa4C7a8DC';
+const timeLockContractAddress = '0xa9D91ad719B84c1483f2e756b91cb6a5d9B67C0f';
+const governorContractAddress = '0x617c758C2c9F8f335Cb88c3BB5aF41bB385e3C8F';
 
-const tokenContractAddress = '0xb3473DDC4449D30CC09fEFC4AF31eC69C9313d1d';
-const tcrContractAddress = '0x0647CB12D38cc63c7F5bc451334a40b7C91b08D8';
-const timeLockContractAddress = '0x7a87F9B540Af7d09Fcb5cb1f4f6f0AbA1C963302';
-const governorContractAddress = '0x43Baea538575b074738cA17Aed25a983f82a03e6';
-
-// const tokenContractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
-// const tcrContractAddress = '0x8A791620dd6260079BF849Dc5567aDC3F2FdC318';
-// const timeLockContractAddress = '0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9';
-// const governorContractAddress = '0x5FC8d32690cc91D4c39d9d3abcBD16989F875707';
 
 // Connect to the contract
 const tokenContract = new ethers.Contract(tokenContractAddress, tokenContractABI.abi, provider);
@@ -45,25 +39,25 @@ const governorContract = new ethers.Contract(governorContractAddress, governorCo
 tokenContract.on('*', async (event) => {
   // console.log('Event emitted:');
   console.log(event); // Log the event data
-  await db.collection('tcr-registry').insertOne({ ...event, chainId: 80001 })
+  await db.collection('tcr-registry').insertOne({ ...event, chainId: 417834 })
 });
 
 tcrContract.on('*', async (event) => {
   // console.log('Event emitted:');
   console.log(event); // Log the event data
-  await db.collection('tcr-registry').insertOne({ ...event, chainId: 80001 })
+  await db.collection('tcr-registry').insertOne({ ...event, chainId: 417834 })
 });
 
 timeLockContract.on('*', async (event) => {
   // console.log('Event emitted:');
   console.log(event); // Log the event data
-  await db.collection('tcr-registry').insertOne({ ...event, chainId: 80001 })
+  await db.collection('tcr-registry').insertOne({ ...event, chainId: 417834 })
 });
 
 governorContract.on('*', async (event) => {
   // console.log('Event emitted:');
   console.log(event); // Log the event data
-  await db.collection('tcr-registry').insertOne({ ...event, chainId: 80001 })
+  await db.collection('tcr-registry').insertOne({ ...event, chainId: 417834 })
 });
 
 // Start the Express.js server
