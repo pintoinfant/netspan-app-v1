@@ -11,6 +11,7 @@ contract NetSpanToken is ERC20Votes, Ownable {
 
   function addNewDAOMember(address _newMember, uint256 _amount) public onlyOwner {
     _mint(_newMember, _amount);
+    delegate(_newMember);
   }
 
   function transfer(

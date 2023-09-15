@@ -21,6 +21,7 @@ contract TCR is Ownable {
   address public daoContract;
 
   event NewEntry(uint256 indexed plmn, address indexed proposer, string name, string region);
+  event EntryDeleted(uint256 indexed plmn, address indexed deleter);
 
   constructor(address _daoContract) {
     daoContract = _daoContract;
@@ -41,5 +42,11 @@ contract TCR is Ownable {
     });
 
     emit NewEntry(plmn, msg.sender, name, region);
+  }
+
+  // Delete a PLMN entry
+  function deleteEntry(uint256 plmn) public onlyOwner {
+    delete plmnRegistry[plmn];
+    emit EntryDeleted(plmn, msg.sender);
   }
 }
