@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract NetSpanToken is ERC20Votes, Ownable {
-  uint256 public s_maxSupply = 1000000000;
+  uint256 public s_maxSupply = 1000000000000000000;
 
   constructor() ERC20("NetSpanToken", "NST") ERC20Permit("NetSpanToken") {}
 

@@ -16,33 +16,15 @@ contract NetSpanGovernor is
   GovernorVotesQuorumFraction,
   GovernorTimelockControl
 {
-  // constructor(IVotes _token, TimelockController _timelock, uint256 _votingDelay, uint256 _votingPeriod, uint256 gigi_qurorumFraction)
-  //   Governor("NetSpanGovernor")
-  //   GovernorSettings(
-  //     300, /* 1 hour */
-  //     21600, /* 3 days */
-  //     0
-  //   )
-  //   GovernorVotes(_token)
-  //   GovernorVotesQuorumFraction(4)
-  //   GovernorTimelockControl(_timelock)
-  // {}
-
-  constructor(
-    IVotes _token,
-    TimelockController _timelock,
-    uint256 _quorumPercentage,
-    uint256 _votingPeriod,
-    uint256 _votingDelay
-  )
-    Governor("GovernorContract")
+  constructor(IVotes _token, TimelockController _timelock)
+    Governor("NetSpanGovernor")
     GovernorSettings(
-      _votingDelay, /* 1 block */ // voting delay
-      _votingPeriod, // 45818, /* 1 week */ // voting period
-      0 // proposal threshold
+      300, /* 1 hour */
+      21600, /* 3 days */
+      0
     )
     GovernorVotes(_token)
-    GovernorVotesQuorumFraction(_quorumPercentage)
+    GovernorVotesQuorumFraction(4)
     GovernorTimelockControl(_timelock)
   {}
 
