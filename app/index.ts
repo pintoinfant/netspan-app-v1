@@ -20,10 +20,12 @@ const provider = new ethers.providers.JsonRpcProvider('https://polygon-mumbai-bo
 const client = new MongoClient(process.env.MONGO_URI as string);
 const db = client.db('netspan')
 
+
+
 const tokenContractAddress = '0xb3473DDC4449D30CC09fEFC4AF31eC69C9313d1d';
-const tcrContractAddress = '0xf7d359d38b2D5a986Ee3b5eAB7c1166555E45112';
+const tcrContractAddress = '0x0647CB12D38cc63c7F5bc451334a40b7C91b08D8';
 const timeLockContractAddress = '0x7a87F9B540Af7d09Fcb5cb1f4f6f0AbA1C963302';
-const governorContractAddress = '0x0a27f6a8791460fa9D28dDD8B4E2b4217959d5FD';
+const governorContractAddress = '0x43Baea538575b074738cA17Aed25a983f82a03e6';
 
 // const tokenContractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 // const tcrContractAddress = '0x8A791620dd6260079BF849Dc5567aDC3F2FdC318';
